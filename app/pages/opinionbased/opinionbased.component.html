@@ -1,0 +1,63 @@
+<div class="row">
+        <div class="col-sm-12">
+          <nb-card>
+            <nb-card-header class="text-center">Opinion based Question Setup</nb-card-header>
+            <nb-card-body>
+              <nb-tabset>
+                <nb-tab tabTitle="Create Question">
+                  <div class="container">
+                    <br>
+                    <form class="form-horizontal" [formGroup]="userForm">
+                      <div class="form-group row">
+                        <label for="inputOrgName" class="col-sm-3 control-label">Enter Question</label>
+                        <div class="col-sm-9">
+                            <textarea rows="2" placeholder="Enter Question" id="inputQuestionText" class="form-control" formControlName="questionText"></textarea>
+                          <div *ngIf="!userForm.controls.questionText.valid && userForm.controls.questionText.touched" style="color:#f50c04;margin-top: 5px;">Please enter Question.</div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputAdmin" class="col-sm-3 control-label">Answer</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputAnswerOpinionBased" placeholder="Enter Answer" formControlName="opinionAnswer1">
+                          <div *ngIf="!userForm.controls.opinionAnswer1.valid && userForm.controls.opinionAnswer1.touched" style="color:#f50c04;margin-top: 5px;">Please enter Answer.</div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="inputAdmin" class="col-sm-3 control-label">Answer</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputAnswerOpinionBased" placeholder="Enter Answer" formControlName="opinionAnswer2">
+                            <div *ngIf="!userForm.controls.opinionAnswer2.valid && userForm.controls.opinionAnswer2.touched" style="color:#f50c04;margin-top: 5px;">Please enter Answer.</div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputAdmin" class="col-sm-3 control-label">Answer</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" id="inputAnswerOpinionBased" placeholder="Enter Answer" formControlName="opinionAnswer3">
+                              <div *ngIf="!userForm.controls.opinionAnswer3.valid && userForm.controls.opinionAnswer3.touched" style="color:#f50c04;margin-top: 5px;">Please enter Answer.</div>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                              <label for="inputAdmin" class="col-sm-3 control-label">Answer</label>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputAnswerOpinionBased" placeholder="Enter Answer" formControlName="opinionAnswer4">
+                                <div *ngIf="!userForm.controls.opinionAnswer4.valid && userForm.controls.opinionAnswer4.touched" style="color:#f50c04;margin-top: 5px;">Please enter Answer.</div>
+                              </div>
+                            </div>
+                      <div class="form-group">
+                        <div class="offset-sm-3 col-sm-9">
+                          <button type="submit" class="btn btn-warning btn-group-full-width" [disabled]="!userForm.valid" (click)="createQuestion()">Create Question</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </nb-tab>
+                <!-- <nb-tab tabTitle="Question Summary">
+                  <div class="container">
+                   <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onEditConfirm($event)"></ng2-smart-table>
+                  </div>
+                </nb-tab> -->
+              </nb-tabset>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>

@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-sm-12">
+      <nb-card>
+        <nb-card-header class="text-center">Question Details</nb-card-header>
+        <nb-card-body>
+          <nb-tabset>
+            <nb-tab tabTitle="Question Details">
+              <div class="container">
+                <br>
+                <form class="form-horizontal" >
+                    <div class="form-group row">
+                        <label for="inputEventRule" class="col-sm-3 control-label">Question</label>
+                        <div class="col-sm-9">
+                          <textarea rows="3" placeholder="QText" value={{this.qText}} class="form-control" [disabled]="true"></textarea>
+                        </div>
+                      </div>
+                  <div class="form-group row">
+                    <div class="col-sm-9">
+                      <div class="container">
+                          <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="100">
+                              <thead>
+                                <tr>
+                                  <th style="width: 20%">
+                                    <mfDefaultSorter by="team">Team Name</mfDefaultSorter>
+                                  </th>
+                                  <th style="width: 20%">
+                                      <mfDefaultSorter by="answered">Answered</mfDefaultSorter>
+                                  </th>
+                                  <th style="width: 20%">
+                                      <mfDefaultSorter by="answer">Given Answer</mfDefaultSorter>
+                                  </th>
+                                  <th style="width: 20%">
+                                      <mfDefaultSorter by="">Correct Answer</mfDefaultSorter>
+                                  </th>
+                                  <th style="width: 20%">
+                                      <mfDefaultSorter by="">Hints Taken</mfDefaultSorter>
+                                  </th>
+                                  <th style="width: 20%">
+                                      <mfDefaultSorter by="">Points Obtained</mfDefaultSorter>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let user of mf.data">
+                                  <td>{{user.team.name}}</td>
+                                  <td>{{user.answered}}</td>
+                                  <td>{{user.answer}} </td>
+                                  <!-- <td>
+                                    <ul style="list-style: none;">
+                                      <li>{{user.answered_tb1}}</li>
+                                      <li>{{user.answered_tb2}}</li>
+                                      <li>{{user.answered_tb3}}</li>
+                                      </ul>
+                                    </td> -->
+                                    <td>{{user.answered_tb1}} </td>
+                                    <td>{{user.answered_tb2}} </td>
+                                    <td>{{user.answered_tb3}} </td>
+                                </tr>
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                  <td colspan="4">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                  </td>
+                                </tr>
+                              </tfoot>
+                            </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="offset-sm-3 col-sm-9">
+                        <div style="text-align: center;"><button class="btn"><a [routerLink]="['/pages/stats']">
+                          <font color="blue">Back to Summary</font>
+                        </a></button></div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </nb-tab>
+          </nb-tabset>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>

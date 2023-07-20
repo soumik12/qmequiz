@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header class="text-center">Location Setup</nb-card-header>
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab tabTitle="Create Location Details">
+            <div class="container">
+              <br>
+              <form class="form-horizontal" [formGroup]="userForm">
+                <div class="form-group row">
+                  <label for="locaName" class="col-sm-3 control-label"><font color="red">*</font> Location Name</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="locaName" placeholder="Enter Location Name"
+                      formControlName="locaName">
+                    <div *ngIf="!userForm.controls.locaName.valid && userForm.controls.locaName.touched"
+                      style="color:#f50c04;margin-top: 5px;">Please Enter Loaction Name.</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="noofQuestion" class="col-sm-3 control-label">Enter Description</label>
+                  <div class="col-sm-9">
+                    <textarea rows="2" placeholder="Enter Description" id="desc" class="form-control" formControlName="descTxt"></textarea>
+                    <div *ngIf="!userForm.controls.descTxt.valid && userForm.controls.descTxt.touched" style="color:#f50c04;margin-top: 5px;">Please
+                      Enter Description.</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <label for="inputLogo" class="col-sm-3 control-label">Upload Location Image</label>
+                    <div class="col-sm-5">
+                      <input type="file" (change)="selectFile($event)" class="form-control" formControlName="locationlogo"
+                        #variable />
+                      <div *ngIf="!userForm.controls.locationlogo.valid && userForm.controls.locationlogo.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please
+                        Upload Image.</div>
+                    </div>
+                    <div class="col-2">
+                      <button class="btn btn-warning margin-top" (click)="RemoveSelectedFile()">Deselect File</button>
+                    </div>
+                  </div>
+                  <div class="row" style="padding-top: 10px;">
+                      <div class="col-9 offset-3">
+                        <nb-card>
+                          <nb-card-body>
+                              <img [src]="imgURLupdate" width="30%" *ngIf="dispImageupdate">
+                          </nb-card-body>
+                          <nb-card-footer>
+                            <p><strong>File Format :</strong> .png, .jpg and .jpeg</p>
+                            <p><strong>Max File Size :</strong> 2 MB</p>
+                            <p><strong>Min Resolution :</strong> 200px*320px</p>
+                            <p><strong>Max Resolution :</strong> 1080px*1920px</p>
+                          </nb-card-footer  >
+                        </nb-card>
+                      </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" class="btn btn-warning btn-group-full-width" [disabled]="!userForm.valid" (click)="createLocation()">Create Location</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Location Summary">
+            <div class="container">
+                <table class="table table-fixed" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="100">
+                  <thead>
+                    <tr>
+                      <th style="width:20%">
+                        <mfDefaultSorter by="name">Location Name</mfDefaultSorter>
+                      </th>
+                      <th style="width:20%">
+                        <mfDefaultSorter by="">Image URL</mfDefaultSorter>
+                      </th>
+                      <th style="width:20%">
+                        <mfDefaultSorter by="">Profile</mfDefaultSorter>
+                      </th>
+                      <th style="width:20%">
+                        <mfDefaultSorter by="">Update Location</mfDefaultSorter>
+                      </th>
+                      <th style="width:20%">
+                        <mfDefaultSorter by="">Delete Location</mfDefaultSorter>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of mf.data">
+                      <td style="width:20%">{{user.name}}</td>
+                      <td style="width:20%;word-wrap: break-word;"><a href="{{user.logoUrl}}" target="_blank">{{user.logoUrl}}</a></td>
+                      <td style="width:20%">{{user.profile}}</td>
+                      <td style="width:20%"><button class="btnEdit" (click)="updateLocation(user)">Update <i class="fa fa-edit"></i></button></td>
+                      <td style="width:20%"><button class="btnDel" (click)="deleteLocation(user)">Delete <i class="fa fa-trash"></i></button></td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <!-- <td colspan="4">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                      </td> -->
+                    </tr>
+                  </tfoot>
+                </table>
+            </div>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

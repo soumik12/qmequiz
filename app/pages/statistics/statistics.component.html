@@ -1,0 +1,36 @@
+<!-- <nb-layout windowMode> -->
+<!-- <nb-layout-column class="main-content"> -->
+<div class="row">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header>
+        <h3 class="text-center">Statistics</h3>
+        <div>
+          <button class="btn btn-warning mr-2" (click)="startRefresh()">Refresh</button>
+          <button class="btn btn-warning" (click)="stopRefresh()">Stop</button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab tabTitle="Team Statistics">
+            <div class="container">
+              <ng2-smart-table [settings]="settings" [source]="source" (custom)="customFuncTeam($event)"></ng2-smart-table>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Question Statistics">
+            <div class="container">
+              <ng2-smart-table [settings]="settings1" [source]="source1" (custom)="customFuncQuestion($event)"></ng2-smart-table>
+            </div>
+          </nb-tab>
+          <!-- <nb-tab tabTitle="Participant Statistics">
+              <div class="container">
+                <ng2-smart-table [settings]="settings1" [source]="source1"></ng2-smart-table>
+              </div>
+            </nb-tab> -->
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<!-- </nb-layout-column>
+  </nb-layout> -->

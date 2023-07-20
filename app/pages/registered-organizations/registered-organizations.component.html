@@ -1,0 +1,20 @@
+<nb-card>
+  <nb-card-body>
+    <h5 class="text-danger">Note:</h5>
+    <h6>For new organizations, please click on your recently added organization and then select generate UID/PASSWORD.</h6>
+    <h6>For any organization, select desired organization and then click Select Outgoing QMeTech Email to send admin details.</h6>
+<hr>
+    <div>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to={{this.adminEMAIL}}&su=Admin Details&body=Hi {{this.adminname}},%0a%0aPlease find the login details below.%0a%0a%0a%0aAdmin UID: {{this.adminUID}}%0a%0aAdmin Password: {{this.adminPASSWD}}%0a%0aOrganization ID: {{this.organizationID}}%0a%0aPlease follow below URL to log in and start creating/managing your event!%0aOrganization URL: http://associationportal.s3-website-us-west-2.amazonaws.com" target="_blank"><button class="btn btn-hero-warning" *ngIf="isOutgoingMail">Select Outgoing QMeTech Email</button></a>
+    </div>
+    <div>
+      <button class="btn btn-hero-warning" *ngIf="isGenuidPasswd" (click)="generateUIDPasswd()">Generate UID/Password</button>
+    </div>
+  </nb-card-body>
+</nb-card>
+<nb-card>
+  <nb-card-header class="text-center">Registered Organizations</nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)"></ng2-smart-table>
+  </nb-card-body>
+</nb-card>

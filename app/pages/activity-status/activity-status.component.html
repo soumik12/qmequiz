@@ -1,0 +1,61 @@
+<div class="container">
+  <h3 class="text-center">Activity Status</h3>
+  <form [formGroup]="userForm"><hr>
+    <div class="row">
+      <div class="col-xxl-4 col-lg-6 col-md-6" *ngFor="let card of progress;let j=index">
+        <nb-card>
+          <nb-card-header>
+            {{card.title}}
+          </nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-8">
+                <p style="margin-top: 12px !important;">
+                  <ngb-progressbar showValue="true" [type]="card.type" [value]="card.value"></ngb-progressbar>
+                </p>
+              </div>
+              <div class="col-4">
+                <div class="input-group input-group-border-only">
+                  <input type="number" placeholder="0" class="form-control" formControlName="paramValue{{j}}" />
+                  <span class="percent">%</span>
+                </div>
+              </div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </form><hr>
+  <div class="row">
+    <div class="col-12">
+      <nb-card>
+        <div class="container">
+          <form [formGroup]="userForm1">
+            <div class="row">
+              <div class="col-xxl-4 col-lg-5 col-md-6" *ngFor="let i of extrafields; let j=index">
+                <nb-card-header>
+                  <ngb-progressbar showValue="true" [type]="i.type" [value]="i.value"></ngb-progressbar>
+                </nb-card-header>
+                <nb-card-body>
+                  <div class="row">
+                    <div class="col-6 input-group input-group-border-only">
+                      <input type="text" placeholder="Field{{ff[j]}}" class="form-control" formControlName="paramValue1{{j}}" />
+                    </div>
+                    <div class="col-6 input-group input-group-border-only">
+                      <input type="number" placeholder="0" class="form-control" formControlName="paramValue2{{j}}" />
+                      <span class="percent">%</span>
+                    </div>
+                  </div>
+                </nb-card-body>
+              </div>
+            </div>
+          </form>
+        </div>
+      </nb-card>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-hero-warning btn-demo btn-group-full-width" (click)="update()">Update</button>
+  </div>
+</div>

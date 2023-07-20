@@ -1,0 +1,270 @@
+<div class="row">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header class="text-center">Game Question Setup</nb-card-header>
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab tabTitle="Create Question">
+            <div class="container">
+              <br>
+              <form [formGroup]="userForm">
+                <div class="form-horizontal">
+                  <div class="row">
+                    <div class="col-md-4 col-sm-3">
+                      <div class="form-group">
+                        <label class="control-label">Select Category</label>
+                        <div class="">
+                          <select name="" class="form-control" formControlName="cataList" id="cataList" (change)="getAllDifficultylevels()">
+                            <option value="">Select Category</option>
+                            <option value="{{c.category}}" *ngFor="let c of categoryList">{{c.category}}</option>
+                          </select>
+                          <div *ngIf="!userForm.controls.cataList.valid && userForm.controls.cataList.touched" style="color:#f50c04;margin-top: 5px;">Please
+                            select a Category.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group ">
+                        <label class="control-label">Select
+                          Difficulty</label>
+                        <div class="">
+                          <select name="" class="form-control" formControlName="inputSelectLevelName" id="inputSelectLevelName"
+                            (change)="getQuesType()">
+                            <option value="">Type of Difficulty</option>
+                            <option value="{{level}}" *ngFor="let level of levelnames">{{level}}</option>
+                          </select>
+                          <div *ngIf="!userForm.controls.inputSelectLevelName.valid && userForm.controls.inputSelectLevelName.touched"
+                            style="color:#f50c04;margin-top: 5px;">Please
+                            select a Difficulty Level.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="control-label">Select Question Type</label>
+                        <div class="">
+                          <select name="" class="form-control" formControlName="qType" (change)="getQuesType()">
+                            <option value="">Select Question Type</option>
+                            <option value="{{q}}" *ngFor="let q of questionType">{{q}}</option>
+                          </select>
+                          <div *ngIf="!userForm.controls.qType.valid && userForm.controls.qType.touched" style="color:#f50c04;margin-top: 5px;">Please
+                            select Question Type.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- <div class="col-md-3">
+                      <div class="form-group">
+                        <label class="control-label">Counter</label>
+                        <div class="">
+                          <input type="text" class="form-control" id="questionCounter" placeholder="0" readonly style="background-color: #faf9f9;">
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+                  <div *ngIf="dispMCQStatus">
+                    <div class="form-group row">
+                      <label for="inputQuestionText" class="col-sm-3 control-label">Enter Question</label>
+                      <div class="col-sm-9">
+                        <textarea rows="2" placeholder="Enter Question" id="inputQuestionText" class="form-control"
+                          formControlName="questionText"></textarea>
+                        <div *ngIf="!userForm.controls.questionText.valid && userForm.controls.questionText.touched"
+                          style="color:#f50c04;margin-top: 5px;">Please
+                          Enter Question.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <!--<label for="answerText" class="col-sm-3 control-label"></label>-->
+                      <div class="offset-3 col-md-9">
+                        <ul>
+                          <li *ngFor="let i of numbers;let j=index;" style="padding-top:5px;list-style :none;">
+                            <div class="row">
+                              <div class="col-md-7 pl-0">
+                                <input type="text" class="form-control" id="answerTxt{{j}}" placeholder="Answer text">
+                              </div>
+                              <div class="col-md-3 col-sm-2">
+                                <!--<input type="radio" name="correctans" value="female" id="ans{{j}}">-->
+                                <label class="btn btn-outline-primary">
+                                  <input type="radio" name="correctans" value="left" id="ans{{j}}"> Correct
+                                </label>
+                              </div>
+                              <div class="col-md-2 col-sm-2" *ngIf="dispMCQHintStatus">
+                                <!--<input type="radio" name="hint" value="female" id="hint{{j}}">-->
+                                <label class="btn btn-outline-primary">
+                                  <input type="radio" name="hint" value="middle" id="hint{{j}}"> Hint
+                                </label>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="form-group row" *ngIf="dispMCQFileUploadStatus">
+                      <label for="inputFile-MCQ" class="col-sm-3 control-label">Upload Image/Video/Mp3</label>
+                      <div class="col-sm-9">
+                        <input type="file" (change)="selectFile_MCQ($event)" class="form-control" #variable1 />
+                        <div class="mt-2">
+                          <p><strong>File Format :</strong> .png, .jpg and .jpeg, .mp4, .mp3</p>
+                          <p><strong>Max File Size :</strong> 2 MB</p>
+                          <p><strong>Min Resolution :</strong> 200px*320px</p>
+                          <p><strong>Max Resolution :</strong> 1080px*1920px</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="offset-sm-3 col-sm-9">
+                        <button type="submit" class="btn btn-warning btn-group-full-width" [disabled]="!userForm.valid"
+                          (click)="addQuestionMCQ()">Add Question
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="dispTBStatus">
+                    <div class="form-horizontal">
+                      <div class="form-group row">
+                        <label for="inputQuestionText-TB" class="col-sm-3 control-label">Enter Question</label>
+                        <div class="col-sm-9">
+                          <textarea rows="2" placeholder="Enter Question" id="inputQuestionText-TB" class="form-control"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputAnswer-TB" class="col-sm-3 control-label">Answer</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputAnswer-TB" placeholder="Enter Answer">
+                        </div>
+                      </div>
+                      <div class="form-group row" *ngIf="dispTBHintStatus">
+                        <label for="inputHint-TB" class="col-sm-3 control-label">Hint</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputHint-TB" placeholder="Enter Hint">
+                        </div>
+                      </div>
+
+                      <div class="form-group row" *ngIf="dispTBFileUploadStatus">
+                        <label for="inputUpload-TB" class="col-sm-3 control-label">Upload Image/Video/Mp3</label>
+                        <div class="col-sm-9">
+                          <input type="file" (change)="selectFile_TB($event)" class="form-control" #variable2 />
+                          <div class="mt-2">
+                            <p><strong>File Format :</strong> .png, .jpg and .jpeg, .mp4, .mp3</p>
+                            <p><strong>Max File Size :</strong> 2 MB</p>
+                            <p><strong>Min Resolution :</strong> 200px*320px</p>
+                            <p><strong>Max Resolution :</strong> 1080px*1920px</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="offset-sm-3 col-sm-9">
+                        <button type="submit" class="btn btn-warning btn-group-full-width" (click)="addQuestionTB()">Add
+                          Question
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Question Summary">
+            <div class="container">
+              <br>
+              <div class="tablediv">
+                <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="100" >
+                  <thead>
+                    <tr>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="">Sl No</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="category">Category</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="difficultyLevel">Level</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="question">Question</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="imagesVideosUrl">Image/Video URL</mfDefaultSorter>
+                      </th>
+                      <th style="width: 10%">
+                        <mfDefaultSorter by="questionType">Question Type</mfDefaultSorter>
+                      </th>
+                      <th style="width: 10%">
+                        <mfDefaultSorter by="marks">Points</mfDefaultSorter>
+                      </th>
+                      <th style="width: 10%">
+                        <mfDefaultSorter by="hintPenelty">Hint Penalty</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="answers">Options</mfDefaultSorter>
+                      </th>
+                      <th style="width: 10%">
+                        <mfDefaultSorter by="correctAnswer">Correct Answer</mfDefaultSorter>
+                      </th>
+                      <th style="width: 10%">
+                        <mfDefaultSorter by="hint">Hint</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="hint">Edit Question</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="hint">Delete Question</mfDefaultSorter>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of mf.data;let p=index;">
+                      <td>{{p+1}}</td>
+                      <td>{{user.category}}</td>
+                      <td>{{user.difficultyLevel}}</td>
+                      <td>{{user.question}}</td>
+                      <td><a href="{{user.imagesVideosUrl}}" target="_blank">{{user.imagesVideosUrl}}</a></td>
+                      <td>{{user.questionType}}</td>
+                      <td>{{user.marks}}</td>
+                      <td>{{user.hintPenelty}}</td>
+                      <td>
+                        <ol type="A">
+                          <li *ngFor="let o of user.newansarr">
+                            {{o}}
+                          </li>
+                        </ol>
+                      </td>
+                      <td>{{user.correctAnswer}}</td>
+                      <td>{{user.hint}}</td>
+  
+  
+                      <td>
+                        <button class="btnEdit" (click)="editQuestion(user)">Update <i class="fa fa-edit"></i></button>
+                      </td>
+                      <td>
+                        <button class="btnDel" (click)="deleteQuestion(user)">Delete <i class="fa fa-trash"></i></button>
+                      </td>
+  
+                      <!-- <td><a href="javascript:void(0)" (click)="editQuestion(user)"><i class="fa fa-edit" style="font-size:24px;color:rgb(54, 140, 221)"></i></a></td>
+                    <td text-align="center"><a href="javascript:void(0)" (click)="deleteQuestion(user)" style="color:rgb(248, 121, 47);font-size: 1.4em"><i
+                          class="fa fa-trash" aria-hidden="true"></i></a></td> -->
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="4">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              
+            </div>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

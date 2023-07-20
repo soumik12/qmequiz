@@ -1,0 +1,152 @@
+<div class="row">
+  <div class="col-12">
+    <nb-card>
+      <!--<form>-->
+      <nb-card-header class="text-center">Sponsor Setup</nb-card-header>
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab tabTitle="Create Sponsor">
+            <div class="container">
+              <br>
+              <form [formGroup]="userForm">
+                <div class="form-horizontal">
+                  <div class="form-group row">
+                    <label class="col-sm-3 control-label">Select Category</label>
+                    <div class="col-sm-9">
+                      <select name="" class="form-control" formControlName="cataList">
+                        <option value="">Select Category</option>
+                        <option value="{{c.category}}" *ngFor="let c of categoryList">{{c.category}}</option>
+                      </select>
+                      <div *ngIf="!userForm.controls.cataList.valid && userForm.controls.cataList.touched" style="color:#f50c04;margin-top: 5px;">Please
+                        select a Category.</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputOrgName" class="col-sm-3 control-label">Name of Sponsor</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="inputOrgName" placeholder="Enter New Sponsor Name"
+                        formControlName="newsponsorname">
+                      <div *ngIf="!userForm.controls.newsponsorname.valid && userForm.controls.newsponsorname.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please enter New Sponsor Name.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <label for="inputLogo" class="col-sm-3 control-label">Upload Sponsor Logo</label>
+                      <div class="col-sm-5">
+                        <input type="file" (change)="selectFile($event)" class="form-control" formControlName="sponsorlogo"
+                          #variable [ngStyle]="{'border':isHighted==false?'1px solid red':''}" />
+                        <div *ngIf="!userForm.controls.sponsorlogo.valid && userForm.controls.sponsorlogo.touched"
+                          style="color:#f50c04;margin-top: 5px;">Please
+                          Upload Logo.</div>
+                      </div>
+                      <div class="col-2">
+                        <button class="btn btn-warning margin-top" (click)="RemoveSelectedFile()">Deselect File</button>
+                      </div>
+                      <div class="col-2">
+                        <button class="btn btn-primary margin-top" (click)="previewImage()">Show</button>
+                      </div>
+                    </div>
+                    <!-- <div class="text-center" style="padding:5px">
+                      <img [src]="imgURL" width="30%" *ngIf="dispImage">
+                    </div> -->
+                    <div class="row" style="padding-top: 10px;">
+                      <div class="col-9 offset-3">
+                        <nb-card>
+                          <nb-card-body>
+                            <img [src]="imgURL" width="30%" *ngIf="dispImage">
+                          </nb-card-body>
+                          <nb-card-footer>
+                            <p><strong>File Format :</strong> .png, .jpg and .jpeg</p>
+                            <p><strong>Max File Size :</strong> 2 MB</p>
+                            <p><strong>Min Resolution :</strong> 200px*320px</p>
+                            <p><strong>Max Resolution :</strong> 1080px*1920px</p>
+                          </nb-card-footer  >
+                        </nb-card>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" class="btn btn-hero-warning btn-group-full-width" [disabled]="!userForm.valid || dd"
+                      (click)="createSponsor()">Create Sponsor</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Update Sponsor Logo">
+            <div class="container">
+              <br>
+              <form [formGroup]="userForm1">
+                <div class="form-horizontal">
+                  <div class="form-group row">
+                    <label class="col-sm-3 control-label">Select Sponsor</label>
+                    <div class="col-sm-9">
+                      <select name="" class="form-control" formControlName="sponsorList">
+                        <option value="">Select Sponsor</option>
+                        <option value="{{s.sponsorName}}" *ngFor="let s of sponsorNames">{{s.sponsorName}}</option>
+                      </select>
+                      <div *ngIf="!userForm1.controls.sponsorList.valid && userForm1.controls.sponsorList.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please
+                        select a Sponsor.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <label for="inputLogo" class="col-sm-3 control-label">Upload Sponsor Logo</label>
+                      <div class="col-sm-5">
+                        <input type="file" (change)="selectFileUpdate($event)" class="form-control" formControlName="sponsorlogo"
+                          #variableUpdate [ngStyle]="{'border':isHightedUpdate==false?'1px solid red':''}" />
+                        <div *ngIf="!userForm1.controls.sponsorlogo.valid && userForm1.controls.sponsorlogo.touched"
+                          style="color:#f50c04;margin-top: 5px;">Please
+                          Upload Logo.</div>
+                      </div>
+                      <div class="col-2">
+                        <button class="btn btn-warning margin-top" (click)="RemoveSelectedFileUpdate()">Deselect File</button>
+                      </div>
+                      <div class="col-2">
+                        <button class="btn btn-primary margin-top" (click)="previewImageUpdate()">Show</button>
+                      </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-9 offset-3">
+                          <nb-card>
+                            <nb-card-body>
+                                <img [src]="imgURLupdate" width="30%" *ngIf="dispImageupdate">
+                            </nb-card-body>
+                            <nb-card-footer>
+                              <p><strong>File Format :</strong> .png, .jpg and .jpeg</p>
+                              <p><strong>Max File Size :</strong> 2 MB</p>
+                              <p><strong>Min Resolution :</strong> 200px*320px</p>
+                              <p><strong>Max Resolution :</strong> 1080px*1920px</p>
+                            </nb-card-footer  >
+                          </nb-card>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" class="btn btn-hero-warning btn-group-full-width" [disabled]="!userForm1.valid || dd_update"
+                      (click)="updateSponsorLogo()">Update Sponsor Logo</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Sponsor Summary">
+            <div class="container">
+              <br>
+              <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)"
+                (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+            </div>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+    <div *ngIf="faliureStatus" style="color:red;text-align: center;">{{userFaliureMsg}}</div>
+    <div *ngIf="faliureStatusUpdate" style="color:red;text-align: center;">{{userFaliureMsgUpdate}}</div>
+  </div>
+</div>

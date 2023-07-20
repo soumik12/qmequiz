@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-12">
+    <nb-card>
+      <!--<form>-->
+      <nb-card-header class="text-center">App Invitation</nb-card-header>
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab tabTitle="App Invitation">
+            <div class="container">
+              <br>
+              <form [formGroup]="userForm2">
+                  <div class="form-group row">
+                      <label class="col-sm-3 control-label">Select App</label>
+                      <div class="col-sm-9">
+                        <select name="" class="form-control" formControlName="eventName" (change)="appSelected($event)">
+                          <option value="">Select App</option>
+                          <option value="Eventville">Eventville</option>
+                          <option value="Politico">Politico</option>
+                          <option value="Festiville">Festiville</option>
+                        </select>
+                        <div *ngIf="!userForm2.controls.eventName.valid && userForm2.controls.eventName.touched"
+                          style="color:#f50c04;margin-top: 5px;">Please
+                          select an Event.</div>
+                      </div>
+                    </div>
+                <div class="form-horizontal">
+                  <div class="form-group row">
+                    <label for="inputSubName" class="col-sm-3 control-label">Subject</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="inputSubName" placeholder="Subject Text" formControlName="subjectname">
+                      <div *ngIf="!userForm2.controls.subjectname.valid && userForm2.controls.subjectname.touched"
+                      style="color:#f50c04;margin-top: 5px;">Please
+                      Enter Subject.</div>
+                    </div>
+                  </div>
+                  <!-- <div class="form-group row">
+                    <label for="inputMessage" class="col-sm-3 control-label">Message</label>
+                    <div class="col-sm-9">
+                      <textarea rows="5" placeholder="Message Body" id="inputMessage" class="form-control"
+                        formControlName="Messagetosend"></textarea>
+                      <div *ngIf="!userForm2.controls.Messagetosend.valid && userForm2.controls.Messagetosend.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please
+                        Enter Message to Send.</div>
+                    </div>
+                  </div> -->
+
+                  <div class="form-group row">
+                    <label for="inputMessage" class="col-sm-3 control-label">Message</label>
+                    <div class="col-sm-9">
+                      <ngx-tiny-mce [data]="invitationMsg" ngDefaultControl (editorKeyup)="valueChange($event)"></ngx-tiny-mce>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="inputMessage" class="col-sm-3 control-label">Upload Excel</label>
+                    <div class="col-sm-9">
+                      <input type="file" (change)="onFileChange($event)" multiple="false" class="form-control"/>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-9 offset-sm-3">
+                      <div style="padding-top:5px;">
+                        <p><strong style="color:red">Note: </strong></p>
+                          <p>1. The Excel Sheet should contain 50 Rows only.</p>
+                          <p>2. The Excel Sheet contains only two columns(Name and Email-ID).
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="offset-sm-3 col-sm-9">
+                      <button type="submit" class="btn btn-hero-warning btn-group-full-width"
+                        (click)="sendInvitation()" [disabled]="!userForm2.valid">Send Invitation</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- <p>{{userForm2.value|json}}</p> -->
+              </form>
+            </div>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

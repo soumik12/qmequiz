@@ -1,0 +1,373 @@
+<div class="row">
+  <div class="col-12">
+    <nb-card>
+      <!--<form>-->
+      <nb-card-header class="text-center">Event Setup</nb-card-header>
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab tabTitle="Create Event">
+            <div class="container">
+              <br>
+              <form [formGroup]="userForm">
+                <div class="form-horizontal">
+                  <div class="form-group row">
+                    <label for="inputOrgName" class="col-sm-3 control-label">Event Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="inputOrgName" placeholder="Event Name"
+                        formControlName="eventname">
+                      <div *ngIf="!userForm.controls.eventname.valid && userForm.controls.eventname.touched" style="color:#f50c04;margin-top: 5px;">Please
+                        enter Event Name.</div>
+                    </div>
+                  </div>
+
+                  <!--<div class="form-group row">-->
+                  <!--<angular2-date-picker  [settings]="settings"></angular2-date-picker>-->
+                  <!--</div>-->
+                  <div class="form-group row">
+                    <label for="inputEventRule" class="col-sm-3 control-label">Event Timing</label>
+                    <div class="col-sm-6">
+                      <input [owlDateTime]="dt1" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" class="form-control"
+                        placeholder="Event Timing" [min]="min" formControlName="eventtiming" readonly>
+                      <owl-date-time #dt1></owl-date-time>
+                      <div *ngIf="!userForm.controls.eventtiming.valid && userForm.controls.eventtiming.touched" style="color:#f50c04;margin-top: 5px;">Please
+                        Select Event Timing.</div>
+                    </div>
+                    <div class="col-3" style="padding:10px;font-size:20px;">
+                      <span [owlDateTimeTrigger]="dt1"><i class="fa fa-calendar"></i></span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputEventRule" class="col-sm-3 control-label">Event Rules</label>
+                    <div class="col-sm-9">
+                      <textarea rows="5" placeholder="Event Rules" id="inputEventRule" class="form-control"
+                        formControlName="eventrules"></textarea>
+                      <div *ngIf="!userForm.controls.eventrules.valid && userForm.controls.eventrules.touched" style="color:#f50c04;margin-top: 5px;">Please
+                        Enter Event Rules.</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="qrcode" class="col-sm-3 control-label">Number of Exhibitors/QR Code</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="qrcode" placeholder="Number of Exhibitors/QR Codes"
+                        formControlName="exhibitorperQRcodes">
+                      <div *ngIf="!userForm.controls.exhibitorperQRcodes.valid && userForm.controls.exhibitorperQRcodes.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please
+                        Enter No of Exhibitors/QR Code.</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="teamNumber" class="col-sm-3 control-label">Maximum Number of Participants per Team</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="maxnoofparticipants" placeholder="Maximum Number of Participants per Team"
+                        formControlName="maxparticipantsperteam" max="10" min="1" (keyup)="getmaxParticipants($event)">
+                      <div *ngIf="!userForm.controls.maxparticipantsperteam.valid && userForm.controls.maxparticipantsperteam.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please
+                        Enter No of participants/Team.</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="qstnType" class="col-sm-3 control-label">Type of Questions</label>
+                    <div class="col-sm-9">
+                      <select name="" id="qstnType" class="form-control" formControlName="questype" (change)="getQuestionType()">
+                        <option value="">Type of Questions</option>
+                        <option value="{{type}}" *ngFor="let type of qstnTypes">{{type}}</option>
+                      </select>
+                      <div *ngIf="!userForm.controls.questype.valid && userForm.controls.questype.touched" style="color:#f50c04;margin-top: 5px;">Please
+                        Select Question Type.</div>
+                    </div>
+                  </div>
+                  <div *ngIf="MCQType">
+                    <div class="row text-center">
+                      <div class="col-12">
+                        <label class="font-w-bold">Multiple Chioce Type</label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="teamNumber" class="col-sm-3 control-label">Number of Alternatives for a MCQ</label>
+                      <div class="col-sm-9">
+                        <input type="number" class="form-control" id="noof_alternatives" placeholder="Number of Alternatives for a Multiple Choice Question (MCQ)"
+                          formControlName="noofAlternatives" (keyup)="getnoofAlternatives($event)" min="1" max="5">
+                        <div *ngIf="!userForm.controls.noofAlternatives.valid && userForm.controls.noofAlternatives.touched"
+                          style="color:#f50c04;margin-top: 5px;">Please Enter No of Alternatives.</div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-3 control-label">Hints Allowed</label>
+                      <div class="col-sm-9">
+                        <select name="" class="form-control" formControlName="hintsAllowed">
+                          <option value="{{allow}}" *ngFor="let allow of hintAllows">{{allow}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-3 control-label">Images & Videos Allowed</label>
+                      <div class="col-sm-9">
+                        <select name="" class="form-control" formControlName="videoImgAllowed">
+                          <option value="{{videoImg}}" *ngFor="let videoImg of videoImgAllows">{{videoImg}}</option>
+                        </select>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="TbType">
+                    <div class="row text-center">
+                      <div class="col-12">
+                        <label class="font-w-bold"> Text Based Type</label>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 control-label">Hints Allowed</label>
+                      <div class="col-sm-9">
+                        <select name="" class="form-control" formControlName="hintsAllowedTB">
+                          <option value="{{allowText}}" *ngFor="let allowText of hintAllowsText">{{allowText}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 control-label">Images & Videos Allowed</label>
+                      <div class="col-sm-9">
+                        <select name="" class="form-control" formControlName="videoImgAllowedTB">
+                          <option value="{{videoImgText}}" *ngFor="let videoImgText of videoImgAllowsText">{{videoImgText}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-9 offset-sm-3">
+                      <font color="red"><b>Note:</b></font> Following section is not editable. Select minutely.
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 control-label">Scan QR Code</label>
+                    <div class="col-sm-9">
+                      <select name="" class="form-control" formControlName="qrAllowed" (change)="getqrAllows($event)">
+                        <option value="">Select</option>
+                        <option value="{{qr}}" *ngFor="let qr of qrAllows">{{qr}}</option>
+                      </select>
+                      <div *ngIf="!userForm.controls.qrAllowed.valid && userForm.controls.qrAllowed.touched" style="color:#f50c04;margin-top: 5px;">Please
+                        Select Yes/No</div>
+                    </div>
+                  </div>
+                  <div class="form-group row" *ngIf="noof_questionstobeplayedstatus">
+                    <label for="inputOrgName" class="col-sm-3 control-label">No. of Questions to be played</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="inputQRCodequestionno" placeholder="No. of Questions to be played"
+                        formControlName="noof_questionstobeplayed">
+                      <div *ngIf="qrquestion" style="color:#f50c04;margin-top: 5px;">Please enter No. of Questions to be played.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" class="btn btn-hero-warning btn-group-full-width" [disabled]="!userForm.valid"
+                      (click)="createEvent()">Create Event</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+
+          <nb-tab tabTitle="Edit Event Details">
+            <div class="container">
+              <br>
+              <div class="form-group row">
+                <label class="col-sm-3 control-label">Event Name</label>
+                <div class="col-sm-9">
+                  <select name="" class="form-control" (change)="getEventNameWithDetails(evntName.value)" #evntName
+                    ngModel>
+                    <option value="">Select an Event</option>
+                    <option value="{{event.raceName}}" *ngFor="let event of eventName">{{event.raceName}}</option>
+                  </select>
+                </div>
+              </div>
+              <form [formGroup]="userForm1">
+                <!-- <div class="form-group row">
+                 <label class="col-sm-3 control-label">Event Name</label>
+                  <div class="col-sm-9">
+                    <select name="" class="form-control" (change)="getEventNameWithDetailss()" formControlName="zzz">
+                      <option value="">Select an Event</option>
+                      <option value="{{event.raceName}}" *ngFor="let event of eventName">{{event.raceName}}</option>
+                    </select>
+                  </div>
+                  </div> -->
+                <div class="form-horizontal">
+                  <div class="form-group row">
+                    <label for="qrcode" class="col-sm-3 control-label">Event Timing</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="Event Timing" formControlName="eventtiming_update1"
+                        readonly>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputEventRule" class="col-sm-3 control-label">UpdateEvent Timing </label>
+                    <div class="col-sm-6">
+                      <input [owlDateTime]="dt2" [selectMode]="'range'" [owlDateTimeTrigger]="dt2" class="form-control"
+                        placeholder="Event Timing" [min]="min" formControlName="eventtiming_update" readonly>
+                      <owl-date-time #dt2></owl-date-time>
+                    </div>
+                    <div class="col-3" style="padding:10px;font-size:20px;">
+                      <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputEventRule" class="col-sm-3 control-label">Event Rules</label>
+                    <div class="col-sm-9">
+                      <textarea rows="5" placeholder="Event Rules" id="inputEventRule" class="form-control"
+                        formControlName="eventrules_update"></textarea>
+                      <div *ngIf="!userForm1.controls.eventrules_update.valid && userForm1.controls.eventrules_update.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please
+                        Enter Event Rules.</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="qrcode" class="col-sm-3 control-label">Number of Exhibitors/QR Codes</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="qrcode" placeholder="Number of Exhibitors/QR Codes"
+                        formControlName="exhibitorperQRcodes_update">
+                      <div *ngIf="!userForm1.controls.exhibitorperQRcodes_update.valid && userForm1.controls.exhibitorperQRcodes_update.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please Enter No of Exhibitors/QR Code.</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="teamNumber" class="col-sm-3 control-label">Maximum Number of Participants per Team</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" placeholder="Maximum Number of Participants per Team"
+                        formControlName="maxparticipantsperteam_update" min="1" max="10" id="maxnoofparticipants_update"
+                        (keyup)=getmaxParticipants($event)>
+                      <div *ngIf="!userForm1.controls.maxparticipantsperteam_update.valid && userForm1.controls.maxparticipantsperteam_update.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please Enter No of participants/Team.</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="qstnType" class="col-sm-3 control-label">Type of Questions</label>
+                    <div class="col-sm-9">
+                      <select name="" id="qstnType" class="form-control" formControlName="questype_update" (change)="getQuestiontype_update()">
+                        <option value="">Type of Questions</option>
+                        <option value="{{type}}" *ngFor="let type of qstnTypes">{{type}}</option>
+                      </select>
+                      <div *ngIf="!userForm1.controls.questype_update.valid && userForm1.controls.questype_update.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please
+                        Select Question Type.</div>
+                    </div>
+                  </div>
+                  <div *ngIf="MCQType_update">
+                    <div class="row text-center">
+                      <div class="col-12">
+                        <label class="font-w-bold">Multiple Chioce Type</label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="teamNumber" class="col-sm-3 control-label">Number of Alternatives for a MCQ</label>
+                      <div class="col-sm-9">
+                        <input type="number" class="form-control" placeholder="Number of Alternatives for a Multiple Choice Question (MCQ)"
+                          formControlName="noofAlternatives_update" id="noof_alternatives_update" (keyup)="getnoofAlternatives($event)"
+                          min="1" max="5">
+                        <div *ngIf="!userForm1.controls.noofAlternatives_update.valid && userForm1.controls.noofAlternatives_update.touched"
+                          style="color:#f50c04;margin-top: 5px;">Please Enter No of Alternatives.</div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-3 control-label">Hints Allowed</label>
+                      <div class="col-sm-9">
+                        <select name="" class="form-control" formControlName="hintsAllowed_update">
+                          <option value="">Select</option>
+                          <option value="{{allow}}" *ngFor="let allow of hintAllows">{{allow}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-3 control-label">Images & Videos Allowed</label>
+                      <div class="col-sm-9">
+                        <select name="" class="form-control" formControlName="videoImgAllowed_update">
+                          <option value="">Select</option>
+                          <option value="{{videoImg}}" *ngFor="let videoImg of videoImgAllows">{{videoImg}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="TBType_update">
+                    <div class="row text-center">
+                      <div class="col-12">
+                        <label class="font-w-bold"> Text Based Type</label>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 control-label">Hints Allowed</label>
+                      <div class="col-sm-9">
+                        <select name="" class="form-control" formControlName="hintsAllowedTB_update">
+                          <option value="">Select</option>
+                          <option value="{{allowText}}" *ngFor="let allowText of hintAllowsText">{{allowText}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 control-label">Images & Videos Allowed</label>
+                      <div class="col-sm-9">
+                        <select name="" class="form-control" formControlName="videoImgAllowedTB_update">
+                          <option value="">Select</option>
+                          <option value="{{videoImgText}}" *ngFor="let videoImgText of videoImgAllowsText">{{videoImgText}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" class="btn btn-hero-warning btn-group-full-width" [disabled]="!userForm1.valid"
+                      (click)="updateEvent()">Update Event</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Edit Event Name">
+            <div class="container">
+              <br>
+              <form [formGroup]="userForm2">
+                <div class="form-horizontal">
+                  <div class="form-group row">
+                    <label class="col-sm-3 control-label">Event Name</label>
+                    <div class="col-sm-9">
+                      <select name="" class="form-control" formControlName="oldEventName">
+                        <option value="">Select an Event</option>
+                        <option value="{{event.raceName}}" *ngFor="let event of eventName">{{event.raceName}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputEventName" class="col-sm-3 control-label">New Event Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="inputEventName" placeholder="New Event Name"
+                        formControlName="neweventname">
+                      <div *ngIf="!userForm2.controls.neweventname.valid && userForm2.controls.neweventname.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please enter New Event Name.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" class="btn btn-hero-warning btn-group-full-width" [disabled]="!userForm2.valid"
+                      (click)="updateEventName()">Save</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+      <!--</form>-->
+    </nb-card>
+  </div>
+</div>

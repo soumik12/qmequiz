@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header class="text-center">Generate QR Code</nb-card-header>
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab tabTitle="Create QR Code">
+            <div class="container">
+              <br>
+              <form class="form-horizontal" [formGroup]="userForm">
+                <div class="form-group row">
+                  <label class="col-sm-3 control-label">Select Location</label>
+                  <div class="col-sm-9">
+                    <select name="" class="form-control" formControlName="locList" (change)="getLocation()">
+                      <option value="">Select Location</option>
+                      <option value="{{l.name}}" *ngFor="let l of loactionList">{{l.name}}</option>
+                    </select>
+                    <div *ngIf="!userForm.controls.locList.valid && userForm.controls.locList.touched" style="color:#f50c04;margin-top: 5px;">Please
+                      select a Location.</div>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="noofQuestion" class="col-sm-3 control-label">Number of Question</label>
+                  <div class="col-sm-9">
+                    <input type="number" class="form-control" id="noofQuestion" placeholder="Enter no. of question"
+                      formControlName="noofQuestion">
+                    <div *ngIf="!userForm.controls.noofQuestion.valid && userForm.controls.noofQuestion.touched"
+                      style="color:#f50c04;margin-top: 5px;">Please enter no. of Question.</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="nxtLocHint" class="col-sm-3 control-label">Next Location Hint</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="nxtLocHint" placeholder="Next Location Hint"
+                      formControlName="nxtLocHint">
+                    <div *ngIf="!userForm.controls.nxtLocHint.valid && userForm.controls.nxtLocHint.touched" style="color:#f50c04;margin-top: 5px;">Please
+                      enter next location Hint.</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" class="btn btn-warning btn-group-full-width" [disabled]="!userForm.valid" (click)="createQRCode()">Create QR Code</button>
+                  </div>
+                </div>
+              </form>
+              <nb-card>
+                <nb-card-body>
+                    <div align="center" *ngIf="isQRCodewithvaluePresent">
+                      <qrcode [qrdata]="textForQRCode" [size]="200" [level]="'H'" ></qrcode>
+                      <button (click)="download()" class="btn btn-success" type="submit" style="margin-top:15px;cursor:pointer;"><a href="{{this.x}}" download="qrcode.png" style="color:black;">Download QR Code</a></button>
+                    </div>
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

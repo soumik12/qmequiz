@@ -1,0 +1,167 @@
+<!-- <nb-layout windowMode> -->
+  <!-- <nb-layout-column class="main-content"> -->
+      <div class="row">
+        <div class="col-sm-12">
+          <nb-card>
+            <nb-card-header class="text-center">Manage Organization</nb-card-header>
+            <nb-card-body>
+              <nb-tabset>
+                <nb-tab tabTitle="Add">
+                  <div class="container">
+                    <br>
+                    <form class="form-horizontal" [formGroup]="userForm">
+                      <div class="form-group row">
+                        <label for="inputOrgName" class="col-sm-3 control-label">Organization Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputOrgName" placeholder="Organization Name" formControlName="orgname">
+                            <div *ngIf="!userForm.controls.orgname.valid && userForm.controls.orgname.touched" style="color:#f50c04;margin-top: 5px;">Please enter Organization Name.</div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputAdmin" class="col-sm-3 control-label">Admin Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputOrgName" placeholder="Admin Name" formControlName="adminname">
+                            <div *ngIf="!userForm.controls.adminname.valid && userForm.controls.adminname.touched" style="color:#f50c04;margin-top: 5px;">Please enter Admin Name.</div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputOrgName" placeholder="Email" formControlName="email">
+                            <div *ngIf="!userForm.controls.email.valid && userForm.controls.email.touched" style="color:#f50c04;margin-top: 5px;">Please enter Email.</div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputPhone" class="col-sm-3 control-label">Phone</label>
+                        <div class="col-sm-3">
+                            <input type="number" class="form-control" id="inputPhone" placeholder="Country Code" formControlName="countrycode">
+                            <div *ngIf="!userForm.controls.countrycode.valid && userForm.controls.countrycode.touched" style="color:#f50c04;margin-top: 5px;">Please enter Country Code.</div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="number" class="form-control" id="inputPhone" placeholder="Area Code" formControlName="areacode">
+                            <div *ngIf="!userForm.controls.areacode.valid && userForm.controls.areacode.touched" style="color:#f50c04;margin-top: 5px;">Please enter Area Code.</div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="number" class="form-control" id="inputPhone" placeholder="Telephone Number" formControlName="telno">
+                            <div *ngIf="!userForm.controls.telno.valid && userForm.controls.telno.touched" style="color:#f50c04;margin-top: 5px;">Please enter Tel No.</div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputUrl" class="col-sm-3 control-label">Enter URL</label>
+                        <div class="col-sm-9">
+                            <input type="tel" class="form-control" [ngStyle]="{'padding-left':'38px'}" id="inputUrl" placeholder="URL" formControlName="url">
+                            <span class="unit">www.</span>
+                            <div *ngIf="!userForm.controls.url.valid && userForm.controls.url.touched" style="color:#f50c04;margin-top: 5px;">Please enter URL.</div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="offset-sm-3 col-sm-9">
+                          <button type="submit" class="btn btn-warning" [disabled]="!userForm.valid" (click)="addOrganization()">Add</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </nb-tab>
+                <nb-tab tabTitle="Update">
+                  <div class="container">
+                    <br>
+                      <div class="form-group row">
+                        <label for="inputSelectOrg" class="col-sm-3 control-label">Select Organization</label>
+                          <div class="col-sm-9">
+                            <select name="" id="inputSelectOrg" class="form-control" (change)="getRegisteredOrg(org.value)" #org ngModel>
+                              <option value="">Registered Organizations</option>
+                              <option *ngFor="let o of optionlist">
+                                {{o}}
+                              </option>
+                            </select>
+                          </div>
+                      </div>
+                      <form class="form-horizontal" [formGroup]="userForm1">
+                      <div class="form-group row">
+                        <label for="inputNewOrg" class="col-sm-3 control-label">New Organization Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputNewOrg" placeholder="New Organization Name" formControlName="neworgname">
+                          <div *ngIf="!userForm1.controls.neworgname.valid && userForm1.controls.neworgname.touched" style="color:#f50c04;margin-top: 5px;">Please enter Organization Name.</div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputAdminName" class="col-sm-3 control-label">Admin Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputAdminName" placeholder="Admin Name" formControlName="adminnamee">
+                          <div *ngIf="!userForm1.controls.adminnamee.valid && userForm1.controls.adminnamee.touched" style="color:#f50c04;margin-top: 5px;">Please enter Admin Name.</div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputEmailUpdate" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputEmailUpdate" placeholder="Email" formControlName="emaill">
+                          <div *ngIf="!userForm1.controls.emaill.valid && userForm1.controls.emaill.touched" style="color:#f50c04;margin-top: 5px;">Please Enter Email.</div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputPhoneUpdate" class="col-sm-3 control-label">Phone</label>
+                        <div class="col-sm-3">
+                          <input type="number" class="form-control" id="inputPhoneUpdate" placeholder="Country Code" formControlName="countrycde">
+                          <div *ngIf="!userForm1.controls.countrycde.valid && userForm1.controls.countrycde.touched" style="color:#f50c04;margin-top: 5px;">Please Enter Country Code.</div>
+                        </div>
+                        <div class="col-sm-3">
+                          <input type="number" class="form-control" id="inputPhoneUpdate" placeholder="Area Code" formControlName="areacde">
+                          <div *ngIf="!userForm1.controls.areacde.valid && userForm1.controls.areacde.touched" style="color:#f50c04;margin-top: 5px;">Please Enter Area Code.</div>
+                        </div>
+                        <div class="col-sm-3">
+                          <input type="number" class="form-control" id="inputPhoneUpdate" placeholder="Telephone Number" formControlName="telnoo">
+                          <div *ngIf="!userForm1.controls.telnoo.valid && userForm1.controls.telnoo.touched" style="color:#f50c04;margin-top: 5px;">Please Enter Phone No.</div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputUpdateUrl" class="col-sm-3 control-label">Enter URL</label>
+                        <div class="col-sm-9">
+                          <input type="url" class="form-control" id="inputUpdateUrl" placeholder="Admin URL" formControlName="urll">
+                          <div *ngIf="!userForm1.controls.urll.valid && userForm1.controls.urll.touched" style="color:#f50c04;margin-top: 5px;">Please Enter URL.</div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="offset-sm-3 col-sm-9">
+                          <button type="submit" class="btn btn-warning" [disabled]="!userForm1.valid" (click)="updateOrganization()">Update</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </nb-tab>
+                <nb-tab tabTitle="Delete">
+                  <div class="container">
+                    <br>
+                      <div class="form-group row">
+                          <label for="inputDeletOrg" class="col-sm-3 control-label">Select Organization</label>
+                          <div class="col-sm-9">
+                            <select name="" id="inputDeletOrg" class="form-control" (change)="getRegisteredOrgfordelete(orgg.value)" #orgg ngModel>
+                                <option value="">Registered Organizations</option>
+                                <option *ngFor="let o of optionlist">
+                                  {{o}}
+                                </option>
+                            </select>
+                        </div>
+                      </div>
+                      <form class="form-horizontal" [formGroup]="userForm2">
+                      <div class="form-group row">
+                        <label for="inputConfOrg" class="col-sm-3 control-label">Confirm Organization</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputConfOrg" placeholder="Confirm Organization for Delete" formControlName="confirmorgname">
+                        <div *ngIf="!userForm2.controls.confirmorgname.valid && userForm2.controls.confirmorgname.touched" style="color:#f50c04;margin-top: 5px;">Please Confirm Organization Name.</div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="offset-sm-3 col-sm-9">
+                          <button type="submit" class="btn btn-warning" [disabled]="!userForm2.valid" (click)="deleteOrg()">Delete</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </nb-tab>
+              </nb-tabset>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+  <!-- </nb-layout-column>
+</nb-layout> -->

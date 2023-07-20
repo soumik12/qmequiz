@@ -1,0 +1,13 @@
+@import '../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/bootstrap/breakpoints';
+
+
+@include nb-install-component() {
+
+  .container1 {
+    max-width: 800px;
+    margin-top: calc(5% + 82px);
+  }
+
+}

@@ -1,0 +1,30 @@
+.btnEdit {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 8px 11px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btnEdit:hover {
+    background-color: rgb(18, 230, 64);
+}
+.btnDel {
+    background-color: rgb(248, 121, 47);
+    border: none;
+    color: white;
+    padding: 8px 11px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btnDel:hover {
+    background-color: rgb(241, 27, 20);;
+}
+// table tbody { display:block; max-height:450px; overflow-y:scroll;}
+// table tbody tr,table thead { display:table; width:100%; table-layout:fixed; }
+
+

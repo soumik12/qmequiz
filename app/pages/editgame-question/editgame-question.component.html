@@ -1,0 +1,133 @@
+<div class="row">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header class="text-center">Edit Game Question</nb-card-header>
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab tabTitle="Edit Question">
+            <div class="container">
+              <br>
+              <form [formGroup]="userForm">
+                <div class="form-horizontal">
+                  <div *ngIf="dispMCQStatus">
+                    <div class="form-group row">
+                      <label for="inputQuestionText" class="col-sm-3 control-label">Enter Question</label>
+                      <div class="col-sm-9">
+                        <textarea rows="2" placeholder="Enter Question" id="inputQuestionText" class="form-control"
+                                  formControlName="questionText"></textarea>
+                        <div *ngIf="!userForm.controls.questionText.valid && userForm.controls.questionText.touched"
+                             style="color:#f50c04;margin-top: 5px;">Please Enter Question.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="answerText" class="col-sm-3 control-label"></label>
+                      <div class="col-sm-9">
+                        <ul>
+                          <li *ngFor="let i of numbers;let j=index;" style="padding-top:5px;list-style :none;">
+                            <div class="row">
+                              <input type="text" class="form-control" id="answerTxt{{j}}" placeholder="Answer text"
+                                     style="width:50%;">
+                              <div class="col-md-2 ">
+                                <label class="btn btn-outline-primary">Correct
+                                  <input type="checkbox" name="correctans" value="female" id="ans{{j}}">
+                                </label>
+                              </div>
+                              <div *ngIf="dispMCQHintStatus" class="col-md-2 ">
+                                <label class="btn btn-outline-primary">Hint
+                                  <input type="checkbox" name="hint" value="female" id="hint{{j}}">
+                                </label>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="form-group row" *ngIf="dispMCQFileUploadStatus">
+                      <label for="default-URL" class="col-sm-3 control-label">File URL</label>
+                      <div class="col-sm-9"><a href="{{this.fileURL_MCQ}}" target="_blank">{{this.fileURL_MCQ}}</a></div>
+                      <label for="inputFile-MCQ" class="col-sm-3 control-label">Upload Image/Video/Mp3</label>
+                      <div class="col-sm-9">
+                        <input type="file" (change)="selectFile_MCQ($event)" class="form-control" #variable1/>
+                        <div class="mt-2">
+                          <p><strong>File Format :</strong> .png, .jpg and .jpeg, .mp4, .mp3</p>
+                          <p><strong>Max File Size :</strong> 2 MB</p>
+                          <p><strong>Min Resolution :</strong> 200px*320px</p>
+                          <p><strong>Max Resolution :</strong> 1080px*1920px</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="offset-sm-3 col-sm-9">
+                        <button type="submit" class="btn btn-warning btn-group-full-width" [disabled]="!userForm.valid"
+                                (click)="updateQuestionMCQ()">Update Question
+                        </button>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="offset-sm-3 col-sm-9">
+                        <div style="text-align: center;">
+                          <button class="btn"><a [routerLink]="['/pages/gamequestionmcms']"><font color="blue">Back to Summary</font></a></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="dispTBStatus">
+                    <div class="form-horizontal">
+                      <div class="form-group row">
+                        <label for="inputQuestionText-TB" class="col-sm-3 control-label">Enter Question</label>
+                        <div class="col-sm-9">
+                          <textarea rows="2" placeholder="Enter Question" id="inputQuestionText_TB" class="form-control"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputAnswer-TB" class="col-sm-3 control-label">Answer</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputAnswer_TB" placeholder="Enter Answer">
+                        </div>
+                      </div>
+                      <div class="form-group row" *ngIf="dispTBHintStatus">
+                        <label for="inputHint-TB" class="col-sm-3 control-label">Hint</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputHint_TB" placeholder="Enter Hint">
+                        </div>
+                      </div>
+                      <div class="form-group row" *ngIf="dispTBFileUploadStatus">
+                        <label for="default-URL" class="col-sm-3 control-label">File URL</label>
+                        <div class="col-sm-9"><a href="{{this.fileURL_TB}}" target="_blank">{{this.fileURL_TB}}</a></div>
+                        <label for="inputUpload-TB" class="col-sm-3 control-label">Upload Image/Video/Mp3</label>
+                        <div class="col-sm-9">
+                          <input type="file" (change)="selectFile_TB($event)" class="form-control" #variable2/>
+                          <div class="mt-2">
+                            <p><strong>File Format :</strong> .png, .jpg and .jpeg, .mp4, .mp3</p>
+                            <p><strong>Max File Size :</strong> 2 MB</p>
+                            <p><strong>Min Resolution :</strong> 200px*320px</p>
+                            <p><strong>Max Resolution :</strong> 1080px*1920px</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="offset-sm-3 col-sm-9">
+                        <button type="submit" class="btn btn-warning btn-group-full-width" (click)="updateQuestionTB()">Update
+                          Question
+                        </button>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="offset-sm-3 col-sm-9">
+                        <div style="text-align: center;">
+                          <button class="btn"><a [routerLink]="['/pages/gamequestionmcms']"><font color="blue">Back to Summary</font></a></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

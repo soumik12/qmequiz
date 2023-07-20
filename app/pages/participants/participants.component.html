@@ -1,0 +1,187 @@
+<!-- <nb-layout windowMode> -->
+<!-- <nb-layout-column class="main-content"> -->
+<div class="row">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header class="text-center">Manage Participant</nb-card-header>
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab tabTitle="Create Participant">
+            <div class="container">
+              <br>
+              <form class="form-horizontal" [formGroup]="userForm">
+                <div class="form-group row">
+                  <label for="inputDeletOrg" class="col-sm-3 control-label">Select Title</label>
+                  <div class="col-sm-9">
+                    <select name="" id="inputDeletOrg" class="form-control" formControlName="title">
+                      <option value="">Title</option>
+                      <option value="Mr.">Mr.</option>
+                      <option value="Ms.">Ms.</option>
+                      <option value="Mrs.">Mrs.</option>
+                      <option value="Dr.">Dr.</option>
+                    </select>
+                    <div *ngIf="!userForm.controls.title.valid && userForm.controls.title.touched" style="color:#f50c04;margin-top: 5px;">Please
+                      select Title.</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputOrgName" class="col-sm-3 control-label">First Name</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputOrgName" placeholder="First Name" formControlName="firstname">
+                    <div *ngIf="!userForm.controls.firstname.valid && userForm.controls.firstname.touched" style="color:#f50c04;margin-top: 5px;">Please
+                      enter First Name.</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputOrgName" class="col-sm-3 control-label">Last Name</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputOrgName" placeholder="Last Name" formControlName="lastname">
+                    <div *ngIf="!userForm.controls.lastname.valid && userForm.controls.lastname.touched" style="color:#f50c04;margin-top: 5px;">Please
+                      enter Last Name.</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputOrgName" class="col-sm-3 control-label">User Name</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputOrgName" placeholder="Enter a User Name(Max. 8 charecters)"
+                      maxlength="8" formControlName="username">
+                    <div *ngIf="!userForm.controls.username.valid && userForm.controls.username.touched" style="color:#f50c04;margin-top: 5px;">Please
+                      enter User Name.</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputOrgName" class="col-sm-3 control-label">Email</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputOrgName" placeholder="Provide Participant Email ID"
+                      formControlName="emailid">
+                    <div *ngIf="!userForm.controls.emailid.valid && userForm.controls.emailid.touched" style="color:#f50c04;margin-top: 5px;">Please
+                      enter Email.</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputPhoneUpdate" class="col-sm-3 control-label">Phone</label>
+                  <div class="col-sm-3">
+                    <input type="number" class="form-control" id="inputPhoneUpdate" placeholder="Country Code"
+                      formControlName="countrycde">
+                    <div *ngIf="!userForm.controls.countrycde.valid && userForm.controls.countrycde.touched" style="color:#f50c04;margin-top: 5px;">Please
+                      Enter Country Code.</div>
+                  </div>
+                  <div class="col-sm-3">
+                    <input type="number" class="form-control" id="inputPhoneUpdate" placeholder="Area Code"
+                      formControlName="areacde">
+                    <div *ngIf="!userForm.controls.areacde.valid && userForm.controls.areacde.touched" style="color:#f50c04;margin-top: 5px;">Please
+                      Enter Area Code.</div>
+                  </div>
+                  <div class="col-sm-3">
+                    <input type="number" class="form-control" id="inputPhoneUpdate" placeholder="Telephone Number"
+                      formControlName="telnoo">
+                    <div *ngIf="!userForm.controls.telnoo.valid && userForm.controls.telnoo.touched" style="color:#f50c04;margin-top: 5px;">Please
+                      Enter Phone No.</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputSelectOrg" class="col-sm-3 control-label">Select Team</label>
+                  <div class="col-sm-9">
+                    <select name="" id="inputSelectOrg" class="form-control" formControlName="teamName">
+                      <option value="">Select Team</option>
+                      <option *ngFor="let o of teamnames">
+                        {{o.teamName}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" class="btn btn-warning btn-group-full-width" [disabled]="!userForm.valid"
+                      (click)="addParticipant()">Add
+                      Participant</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Participant Summary" style="padding-top:5px;">
+            <div class="container">
+              <div style="text-align: center;" *ngIf="autoTeamAssignButtonDisplay_status"><button type="submit" class="btn btn-info" (click)="autoAssign()">Auto Assign Team</button></div>
+              <form [formGroup]="userForm1" style="padding-top:5px;">
+                <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="100">
+                  <thead>
+                    <tr>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="firstname">Participant</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="userName">User Name</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="email">Email</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="phoneNumber">Phone Number</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="teamName">Team</mfDefaultSorter>
+                      </th>
+                      <th style="width: 30%">
+                        <mfDefaultSorter by="">Select to Assign Team</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="">Unassign Team</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="">Update Participant</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="">Delete Participant</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="">Check In</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="">Log Out</mfDefaultSorter>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of mf.data">
+                      <td>{{user.firstname}} {{user.lastName}}</td>
+                      <td>{{user.userName}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.phoneNumber}}</td>
+                      <td>{{user.teamName}}</td>
+                      <!-- <td><input type="radio" name="selectStatus" (change)="handleChange(user)" value="{{user.raceName}}" [checked]='user.newKey'><span class="checkmark"></span>
+                          </td> -->
+                      <td>
+                        <select name="" class="form-control" (change)="getTeamNameAndAssignToParticipant(user)"
+                          formControlName="teamNamee">
+                          <option value="">Select Team</option>
+                          <option value="{{t.teamName}}" *ngFor="let t of teamnames">{{t.teamName}}</option>
+                        </select>
+                      </td>
+                      <td><button class="btnDel" (click)="unassignParticipant(user)" *ngIf="user.newKey">Unassign <i
+                            class="fa fa-refresh"></i></button></td>
+                      <td><button class="btnEdit" (click)="updateParticipant(user)">Update <i class="fa fa-edit"></i></button></td>
+                      <td><button class="btnDel" (click)="deleteParticipant(user)">Delete <i class="fa fa-trash"></i></button></td>
+                      <td><input type="checkbox" name="checkIn" value="" (change)="setCheckIn($event,user)" [checked]="user.isCheckedIn"></td>
+                      <td><input type="checkbox" name="vehicle1" value="" (change)="setLogout($event,user)" [checked]="user.isLoggedIn"></td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="4">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </form>
+            </div>
+          </nb-tab>
+
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<!-- </nb-layout-column>
+  </nb-layout> -->

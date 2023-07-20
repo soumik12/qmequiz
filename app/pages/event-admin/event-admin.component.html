@@ -1,0 +1,210 @@
+<div class="row">
+  <div class="col-12">
+    <nb-card>
+      <!--<form>-->
+      <nb-card-header class="text-center">Event Admin Setup</nb-card-header>
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab tabTitle="App Splash Screen">
+            <div class="container">
+              <br>
+              <form [formGroup]="userForm">
+                <div class="form-horizontal">
+                  <div class="form-group">
+                    <div class="row">
+                      <label for="inputLogo" class="col-sm-3 control-label">Upload Splash Screen</label>
+                      <div class="col-sm-5">
+                        <input type="file" (change)="selectFile($event)" class="form-control" formControlName="appsplashscreen"
+                          #variable [ngStyle]="{'border':isHighted==false?'1px solid red':''}" />
+                        <div *ngIf="!userForm.controls.appsplashscreen.valid && userForm.controls.appsplashscreen.touched"
+                          style="color:#f50c04;margin-top: 5px;">Please
+                          Upload Splash Screen.</div>
+                      </div>
+                      <div class="col-2">
+                        <button class="btn btn-warning margin-top" (click)="RemoveSelectedFile()">Deselect File</button>
+                      </div>
+
+                      <!-- <div class="text-center">
+                        <img [src]="imgURL" height="auto" width="100%" *ngIf="dispImage">
+                      </div> -->
+                    </div>
+                    <div class="row" style="padding-top:10px;">
+                      <div class="col-9 offset-3">
+                        <nb-card>
+                          <nb-card-body>
+                            <div class="row">
+                              <div class="col-5" style="border-right: 2px solid #888888">
+                                <img [src]="imgURL" width="50%" height="auto" *ngIf="dispImage" style="padding:5px; margin:75px;">
+                              </div>
+                              <div class="col-6" style="padding: 20px; margin:20px;">
+                                <p><strong>File Format :</strong> .png, .jpg and .jpeg</p>
+                                <p><strong>Max File Size :</strong> 2 MB</p>
+                                <p><strong>Min Resolution :</strong> 200px*320px</p>
+                                <p><strong>Max Resolution :</strong> 1080px*1920px</p>
+                                <ol type="1">
+                                  <h5 style="color:#f50c04;">Note:</h5>
+                                  <li>Please upload Portrait Image only.</li>
+                                  <li>Resolution describes the image size as the number of pixels it contains,
+                                    typically as 'width x height'.</li>
+                                  <li> It may take sometime to render the uploaded Image.</li>
+                                </ol>
+                              </div>
+                            </div>
+                          </nb-card-body>
+                        </nb-card>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" class="btn btn-hero-warning btn-group-full-width" [disabled]="!userForm.valid||dd"
+                      (click)="uploadSplash()">Upload Splash Screen</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Upload Logo">
+            <div class="container">
+              <br>
+              <form [formGroup]="userForm1">
+                <div class="form-horizontal">
+                  <div class="form-group">
+                    <div class="row">
+                      <label for="inputLogo" class="col-sm-3 control-label">Upload Logo</label>
+                      <div class="col-sm-5">
+                        <input type="file" (change)="selectFileForLogo($event)" class="form-control" formControlName="logotoUpload"
+                          #variable_forLogo [ngStyle]="{'border':isHighted_forLogo==false?'1px solid red':''}" />
+                        <div *ngIf="!userForm1.controls.logotoUpload.valid && userForm1.controls.logotoUpload.touched"
+                          style="color:#f50c04;margin-top: 5px;">Please
+                          Upload Logo.</div>
+                      </div>
+                      <div class="col-2">
+                        <button class="btn btn-warning margin-top" (click)="RemoveSelectedFileForLogo()">Deselect File</button>
+                      </div>
+
+                      <!-- <div class="text-center">
+                      <img [src]="imgURL_forLogo" height="auto" width="100%" *ngIf="dispImage_forLogo">
+                    </div> -->
+                      <div class="row" style="padding-top:10px;">
+                        <div class="col-9 offset-3">
+                          <nb-card>
+                            <nb-card-body>
+                              <div class="row">
+                                <div class="col-5" style="border-right: 2px solid #888888">
+                                  <img [src]="imgURL_forLogo" width="50%" height="auto" *ngIf="dispImage_forLogo" style="padding:5px; margin:75px;">
+                                </div>
+                                <div class="col-6" style="padding: 20px; margin:20px;">
+                                  <p><strong>File Format :</strong> .png, .jpg and .jpeg</p>
+                                  <p><strong>Max File Size :</strong> 2 MB</p>
+                                  <p><strong>Min Resolution :</strong> 200px*320px</p>
+                                  <p><strong>Max Resolution :</strong> 1080px*1920px</p>
+                                  <ol type="1">
+                                    <h5 style="color:#f50c04;">Note:</h5>
+                                    <li>Resolution describes the image size as the number of pixels it contains,
+                                      typically as 'width x height'.</li>
+                                    <li>It may take sometime to render the uploaded Image.</li>
+                                  </ol>
+                                </div>
+                              </div>
+                            </nb-card-body>
+                          </nb-card>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" class="btn btn-hero-warning btn-group-full-width" [disabled]="!userForm1.valid||dd_forLogo"
+                      (click)="uploadHeaderLogo()">Upload Logo</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Message Center">
+            <div class="container">
+              <br>
+              <form [formGroup]="userForm2">
+                <div class="form-horizontal">
+                  <div class="form-group row">
+                    <label for="inputSubName" class="col-sm-3 control-label">Subject</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="inputSubName" placeholder="Subject Text"
+                        formControlName="subjectname">
+                      <div *ngIf="!userForm2.controls.subjectname.valid && userForm2.controls.subjectname.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please
+                        enter Subject.</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputMessage" class="col-sm-3 control-label">Message</label>
+                    <div class="col-sm-9">
+                      <textarea rows="5" placeholder="Message Body" id="inputMessage" class="form-control"
+                        formControlName="Messagetosend"></textarea>
+                      <div *ngIf="!userForm2.controls.Messagetosend.valid && userForm2.controls.Messagetosend.touched"
+                        style="color:#f50c04;margin-top: 5px;">Please
+                        Enter Message to Send.</div>
+                      <div style="padding-top:5px;">
+                        <p><strong style="color:red">Note: </strong>This message will be sent to everyone registered.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="offset-sm-3 col-sm-9">
+                      <button type="submit" class="btn btn-hero-warning btn-group-full-width" [disabled]="!userForm2.valid"
+                        (click)="sendMessage()">Send Message</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Select Active Event">
+            <div class="container">
+              <br>
+              <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="100">
+                <thead>
+                <tr>
+                    <th style="width: 20%">
+                        <mfDefaultSorter by="raceName">Race Name</mfDefaultSorter>
+                    </th>
+                    <th style="width: 20%">
+                        <mfDefaultSorter by="startDateTime">Start Time</mfDefaultSorter>
+                    </th>
+                    <th style="width: 20%">
+                        <mfDefaultSorter by="startDateTime">End Time</mfDefaultSorter>
+                    </th>
+                    <th style="width: 20%">
+                        <mfDefaultSorter by="Status">Status</mfDefaultSorter>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let user of mf.data">
+                    <td>{{user.raceName}}</td>
+                    <td>{{user.startDateTime}}</td>
+                    <td>{{user.endDateTime}}</td>
+                    <td><input type="radio" name="selectStatus" (change)="handleChange(user)" value="{{user.raceName}}" [checked]='user.newKey'><span class="checkmark"></span>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="4">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                    </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+    <div *ngIf="faliureStatus" style="color:red;text-align: center;">{{userFaliureMsg}}</div>
+    <div *ngIf="faliureStatus_forLogo" style="color:red;text-align: center;">{{userFaliureMsg_forLogo}}</div>
+  </div>
+</div>

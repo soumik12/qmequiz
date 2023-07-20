@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-12">
+    <nb-card>
+      <!--<form>-->
+      <nb-card-header class="text-center">Question Setup</nb-card-header>
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab tabTitle="Create Category">
+              <div class="container">
+                  <br>
+                  <form [formGroup]="userForm">
+                    <div class="form-horizontal">
+                      <div class="form-group row">
+                        <label for="inputOrgName" class="col-sm-3 control-label">New Category Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputOrgName" placeholder="Enter New Categry" formControlName="newcategoryname">
+                          <div *ngIf="!userForm.controls.newcategoryname.valid && userForm.controls.newcategoryname.touched" style="color:#f50c04;margin-top: 5px;">Please enter New Category Name.</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="offset-sm-3 col-sm-9">
+                        <button type="submit" class="btn btn-hero-warning btn-group-full-width" [disabled]="!userForm.valid" (click)="createCategory()">Create</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+          </nb-tab>
+
+          <nb-tab tabTitle="Category Summary">
+            <div class="container">
+                <br>
+                <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onEditConfirm($event)"></ng2-smart-table>
+              </div>
+        </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
